@@ -8,7 +8,20 @@ def update_quality(awards)
   end
 end
 
-
+def check_blue_compare(award)
+  if award.name == 'Blue Compare'
+    if award.expires_in < 11
+      if award.quality < 50
+        award.quality += 1
+      end
+    end
+    if award.expires_in < 6
+      if award.quality < 50
+        award.quality += 1
+      end
+    end
+  end
+end
 
 def check_blue_star(award)
   if award.name == 'Blue Star'
@@ -33,7 +46,6 @@ def check_blue_star(award)
   end
 end
 
-
 def check_blue_first_or_compare(award)
   if award.name != 'Blue First' && award.name != 'Blue Compare'
     if award.quality > 0
@@ -44,18 +56,7 @@ def check_blue_first_or_compare(award)
   else
     if award.quality < 50
       award.quality += 1
-      if award.name == 'Blue Compare'
-        if award.expires_in < 11
-          if award.quality < 50
-            award.quality += 1
-          end
-        end
-        if award.expires_in < 6
-          if award.quality < 50
-            award.quality += 1
-          end
-        end
-      end
+      check_blue_compare(award)
     end
   end
 end
