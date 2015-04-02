@@ -1,5 +1,5 @@
 require 'rspec'
-require 'update_quality'
+require 'uq3'
 require 'pry'
 
 describe '#update_quality' do
