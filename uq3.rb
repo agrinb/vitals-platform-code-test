@@ -32,6 +32,8 @@ def expired(award)
   end
 end
 
+
+
 def add_quality(award)
   if award.quality < 50
     award.quality += 1
@@ -64,16 +66,16 @@ end
 def adjust_blue_star(award)
   if award.name == 'Blue Star'
     if award.quality < 50
-      if award.expires_in < 6
+      if award.expires_in < 10
         if award.quality < 50
-          unless (award.quality - 2) < 0
+          unless award.quality < 1
             award.quality -= 1
           end
         end
       end
       if award.expires_in < 0
         if award.quality < 50
-          unless (award.quality - 1) < 0
+          unless award.quality < 1
             award.quality -= 1
           end
         end
