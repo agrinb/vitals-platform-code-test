@@ -10,25 +10,25 @@ def update_quality(awards)
         add_to_blue_compare(award)
       end
     end
-    if award.name != 'Blue Distinction Plus'
+    unless award.name == 'Blue Distinction Plus'
       award.expires_in -= 1
     end
-    expired(award)
+    if award.expires_in < 0
+      expired(award)
+    end
     adjust_blue_star(award)
   end
 end
 
 def expired(award)
-  if award.expires_in < 0
-    if award.name != 'Blue First'
-      if award.name != 'Blue Compare'
-        dec_quality(award)
-      else
-        award.quality = 0
-      end
+  unless award.name == 'Blue First'
+    unless award.name == 'Blue Compare'
+      dec_quality(award)
     else
-      add_quality(award)
+      award.quality = 0
     end
+  else
+    add_quality(award)
   end
 end
 
@@ -64,19 +64,11 @@ end
 def adjust_blue_star(award)
   if award.name == 'Blue Star'
     if award.quality < 50
-      if award.expires_in < 10
-        if award.quality < 50
-          unless award.quality < 1
-            award.quality -= 1
-          end
-        end
+      if award.expires_in < 10 && award.quality > 1
+        award.quality -= 1
       end
-      if award.expires_in < 0
-        if award.quality < 50
-          unless award.quality < 1
-            award.quality -= 1
-          end
-        end
+      if award.expires_in < 0 && award.quality > 1
+        award.quality -= 1
       end   
     end
   end
